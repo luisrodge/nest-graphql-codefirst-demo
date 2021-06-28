@@ -1,8 +1,18 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
+
 import { FoodsService } from './foods.service';
-import { Food } from './entities/food.entity';
+import { Food } from './food.entity';
 import { CreateFoodInput } from './dto/create-food.input';
 import { UpdateFoodInput } from './dto/update-food.input';
+import { Restaurant } from 'src/restaurants/restaurant.entity';
 
 @Resolver(() => Food)
 export class FoodsResolver {
@@ -21,6 +31,11 @@ export class FoodsResolver {
   @Query(() => Food, { name: 'food' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.foodsService.findOne(id);
+  }
+
+  @ResolveField(() => Restaurant, { name: 'restaurant' })
+  findRestaurant(@Parent() food: Food): Promise<Restaurant> {
+    return this.foodsService.getRestaurant(food.restaurantId);
   }
 
   @Mutation(() => Food)

@@ -13,11 +13,14 @@ type Restaurant {
   id: Int!
   name: String!
   address: String
+  foods: [Food!]!
 }
 
 type Food {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  name: String!
+  restaurantId: Int!
+  restaurant: Restaurant!
 }
 
 type Query {
@@ -60,12 +63,12 @@ input CreateRestaurantInput {
 }
 
 input CreateFoodInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  restaurantId: Int!
 }
 
 input UpdateFoodInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  name: String
+  restaurantId: Int
   id: Int!
 }
