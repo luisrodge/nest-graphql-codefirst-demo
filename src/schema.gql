@@ -15,16 +15,28 @@ type Restaurant {
   address: String
 }
 
+type Food {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
   user(userId: String!): User
   users(userIds: [String!]!): [User]!
   restaurants: [Restaurant!]!
+  restaurant(id: Int!): Restaurant!
+  foods: [Food!]!
+  food(id: Int!): Food!
 }
 
 type Mutation {
   createUser(createUserData: CreateUserInput!): User!
   updateUser(updateUserData: UpdateUserInput!): User!
   deleteUser(deleteUserData: DeleteUserInput!): User!
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  createFood(createFoodInput: CreateFoodInput!): Food!
+  updateFood(updateFoodInput: UpdateFoodInput!): Food!
+  removeFood(id: Int!): Food!
 }
 
 input CreateUserInput {
@@ -40,4 +52,20 @@ input UpdateUserInput {
 
 input DeleteUserInput {
   userId: String!
+}
+
+input CreateRestaurantInput {
+  name: String!
+  address: String
+}
+
+input CreateFoodInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateFoodInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
