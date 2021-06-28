@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  userId: String!
+  email: String!
+  age: Int!
+  isSubscribed: Boolean
+}
+
+type Restaurant {
+  id: Int!
+  name: String!
+  address: String
+  foods: [Food!]!
+}
+
+type Food {
+  id: Int!
+  name: String!
+  restaurantId: Int!
+  restaurant: Restaurant!
+}
+
+type Query {
+  user(userId: String!): User
+  users(userIds: [String!]!): [User]!
+  restaurants: [Restaurant!]!
+  restaurant(id: Int!): Restaurant!
+  foods: [Food!]!
+  food(id: Int!): Food!
+}
+
+type Mutation {
+  createUser(createUserData: CreateUserInput!): User!
+  updateUser(updateUserData: UpdateUserInput!): User!
+  deleteUser(deleteUserData: DeleteUserInput!): User!
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  createFood(createFoodInput: CreateFoodInput!): Food!
+  updateFood(updateFoodInput: UpdateFoodInput!): Food!
+  removeFood(id: Int!): Food!
+}
+
+input CreateUserInput {
+  email: String!
+  age: Float!
+}
+
+input UpdateUserInput {
+  userId: String!
+  age: Float!
+  isSubscribed: Boolean
+}
+
+input DeleteUserInput {
+  userId: String!
+}
+
+input CreateRestaurantInput {
+  name: String!
+  address: String
+}
+
+input CreateFoodInput {
+  name: String!
+  restaurantId: Int!
+}
+
+input UpdateFoodInput {
+  name: String
+  restaurantId: Int
+  id: Int!
+}
