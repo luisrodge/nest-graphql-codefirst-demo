@@ -24,6 +24,10 @@ type Food {
   restaurant: Restaurant!
 }
 
+type UserToken {
+  access_token: String!
+}
+
 type Query {
   user(userId: String!): User
   users(userIds: [String!]!): [User]!
@@ -41,6 +45,7 @@ type Mutation {
   createFood(createFoodInput: CreateFoodInput!): Food!
   updateFood(updateFoodInput: UpdateFoodInput!): Food!
   removeFood(id: Int!): Food!
+  login(input: AuthLoginInput!): UserToken!
 }
 
 input CreateUserInput {
@@ -72,4 +77,9 @@ input UpdateFoodInput {
   name: String
   restaurantId: Int
   id: Int!
+}
+
+input AuthLoginInput {
+  email: String!
+  password: String!
 }

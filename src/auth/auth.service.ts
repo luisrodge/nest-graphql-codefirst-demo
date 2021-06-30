@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { User } from 'src/users/models/user';
 import { UsersService } from 'src/users/users.service';
 import { jwtSecret } from './constants';
+import { AuthLoginInput } from './dto/input/auth-login.input';
+import { UserToken } from './dto/user-token';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +24,17 @@ export class AuthService {
     return passwordIsValid ? user : null;
   }
 
-  login(user: User): { access_token: string } {
+  login(user: User): UserToken {
+    const payload = { email: user.email, sub: user.userId };
+
+    return { access_token: this.jwtService.sign(payload) };
+  }
+
+  public gqlLogin(input: AuthLoginInput): UserToken {
+    const user = this.validate(input.email, input.password);
+
+    if (!user) throw new UnauthorizedException();
+
     const payload = { email: user.email, sub: user.userId };
 
     return { access_token: this.jwtService.sign(payload) };
