@@ -7,6 +7,7 @@ type User {
   email: String!
   age: Int!
   isSubscribed: Boolean
+  password: String
 }
 
 type Restaurant {
@@ -21,6 +22,10 @@ type Food {
   name: String!
   restaurantId: Int!
   restaurant: Restaurant!
+}
+
+type UserToken {
+  access_token: String!
 }
 
 type Query {
@@ -40,6 +45,7 @@ type Mutation {
   createFood(createFoodInput: CreateFoodInput!): Food!
   updateFood(updateFoodInput: UpdateFoodInput!): Food!
   removeFood(id: Int!): Food!
+  login(input: AuthLoginInput!): UserToken!
 }
 
 input CreateUserInput {
@@ -71,4 +77,9 @@ input UpdateFoodInput {
   name: String
   restaurantId: Int
   id: Int!
+}
+
+input AuthLoginInput {
+  email: String!
+  password: String!
 }
